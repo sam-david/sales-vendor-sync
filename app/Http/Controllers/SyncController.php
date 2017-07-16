@@ -12,9 +12,12 @@ class SyncController extends Controller
 
     public function sync()
     {
-      $this->shopifyClient = new ShopifyClient('test','test');
-
-      Log::info('SHOPIFY CLIENT: ' . print_r($this->shopifyClient, true));
-      return $this->shopifyClient->getProducts();
+      $this->shopifyClient = new ShopifyClient(env('SHOPIFY_API_KEY'), env('SHOPIFY_PASSWORD'));
+      // get shopify products
+      // sync with current inv
+      $this->shopifyClient->syncWithVendor();
+      // get vend products
+      // sync with current inv
+      return ["TOTALLY SYNCED"];
     }
 }

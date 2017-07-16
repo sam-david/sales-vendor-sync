@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Vendor;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +12,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+      $shopifyVendor = new Vendor;
+      $shopifyVendor->name = "Shopify";
+      $shopifyVendor->save();
+
+      $vendVendor = new Vendor;
+      $vendVendor->name = "Vend";
+      $vendVendor->save();
     }
 }

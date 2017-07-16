@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVariantsTable extends Migration
+class CreateProductReferencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateVariantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('variants', function (Blueprint $table) {
+        Schema::create('product_references', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('sku');
-            $table->decimal('price', 6, 2);
-            $table->integer('quantity');
+            $table->string('external_id');
+
             $table->integer('product_id');
             $table->foreign('product_id')->references('id')->on('products');
+
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateVariantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('variants');
+        Schema::dropIfExists('product_references');
     }
 }

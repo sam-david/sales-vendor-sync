@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddVendorsForeignKeyToProductReferences extends Migration
+class AddVendorsForeignKeyToVariantReferences extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddVendorsForeignKeyToProductReferences extends Migration
      */
     public function up()
     {
-        Schema::table('product_references', function (Blueprint $table) {
-            $table->foreign('variant_id')->references('id')->on('variants');
+        Schema::table('variant_references', function (Blueprint $table) {
+            $table->integer('vendor_id');
+            $table->foreign('vendor_id')->references('id')->on('vendors');
         });
     }
 
@@ -25,8 +26,8 @@ class AddVendorsForeignKeyToProductReferences extends Migration
      */
     public function down()
     {
-        Schema::table('product_references', function (Blueprint $table) {
-            $table->dropColumn('variant_id');
+        Schema::table('variant_references', function (Blueprint $table) {
+            $table->dropColumn('vendor_id');
         });
     }
 }
