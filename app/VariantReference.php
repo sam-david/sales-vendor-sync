@@ -10,4 +10,9 @@ class VariantReference extends Model
     {
         return $this->belongsTo('App\Variant');
     }
+
+    public function vendor()
+    {
+        return $this->belongsTo('App\Vendor');
+    }
 }

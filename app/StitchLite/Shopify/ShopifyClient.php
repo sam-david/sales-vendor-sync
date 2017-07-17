@@ -88,7 +88,7 @@ class ShopifyClient implements VendorClient {
             $newVariant = new Variant;
             $newVariant->sku = $variant->sku;
             $newVariant->price = $variant->price;
-            $newVariant->quantity = intval($variant->quantity);
+            $newVariant->quantity = $variant->inventory_quantity;
             $newVariant->product_id = $currentProduct->id;
             $newVariant->save();
             Log::info("CREATED VARIANT: ". $newVariant->id);
