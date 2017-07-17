@@ -3,13 +3,14 @@
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
+use App\StitchLite\VendorClient;
 use App\VariantReference;
 use App\ProductReference;
 use App\Product;
 use App\Variant;
 use App\Vendor;
 
-class ShopifyClient {
+class ShopifyClient implements VendorClient {
   protected $apiKey;
   protected $apiPassword;
   protected $currentVendor;
@@ -25,18 +26,9 @@ class ShopifyClient {
     $res = $client->request('GET', 'https://sam-d-test-store.myshopify.com/admin/products.json', [
       'auth' => [$this->apiKey, $this->apiPassword]
     ]);
-
-    // Log::info("PRODUCTS: ". $res->getBody());
-
     $decodedBody = json_decode($res->getBody());
 
-    // Log::info("Decoded: ". print_r($decodedBody->products, true));
-
     return $decodedBody->products;
-  }
-
-  public function getProduct($id) {
-    // pull product by id?
   }
 
   public function updateProductVariant($productId, $variantId, Variant $currentVariant) {

@@ -14,13 +14,8 @@ class VendController extends Controller
     $this->vendClient = new VendClient();
     $code = $request->all()['code'];
     $domainPrefix = $request->all()['domain_prefix'];
-
-    Log::info("CODE: ". $code);
-
     $accessTokenData = $this->vendClient->getAccessToken($code, $domainPrefix);
 
-    // Log::info("ACCESS TOKEN: ". $accessTokenData);
-    Log::info("ACCESS TOKEN TYPE: ". gettype($accessTokenData));
     $this->vendClient->currentVendor->update([
       'access_token' => $accessTokenData->access_token,
       'refresh_token' => $accessTokenData->refresh_token,
@@ -28,7 +23,10 @@ class VendController extends Controller
       'domain_prefix' => $domainPrefix
     ]);
 
-    return ['SAVED ACCESS TOKEN'];
+    return response()->json([
+      'status' => 'complete',
+      'message' => 'Access token saved'
+    ]);
   }
 
   public function index() {

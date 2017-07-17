@@ -3,13 +3,14 @@
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
+use App\StitchLite\VendorClient;
 use App\VariantReference;
 use App\ProductReference;
 use App\Product;
 use App\Variant;
 use App\Vendor;
 
-class VendClient {
+class VendClient implements VendorClient {
   protected $clientId;
   protected $clientSecret;
   protected $domainPrefix;
@@ -47,17 +48,9 @@ class VendClient {
         ]
       ]);
 
-    // Log::info("PRODUCTS: ". $res->getBody());
-
     $decodedBody = json_decode($res->getBody());
 
-    // Log::info("Decoded: ". print_r($decodedBody->products, true));
-
     return $decodedBody->products;
-  }
-
-  public function getProduct($id) {
-    // pull product by id?
   }
 
   public function syncWithVendor() {
@@ -67,11 +60,9 @@ class VendClient {
 
     foreach ($currentVariants as $variant) {
       if ($variant->active && $variant->base_name != 'Discount') { // unable to delete discount item on site, workaround
-        Log::info("CURRENT VARIANT SYNC: ". print_r($variant,true));
         $currentProduct = Product::where('name', $variant->base_name)->first();
 
         $variantInventoryCount = intval($variant->inventory[0]->count);
-        Log::info("INVENTORY COUNT" . $variantInventoryCount);
 
         if ($currentProduct == NULL) {
           $currentProduct = new Product;

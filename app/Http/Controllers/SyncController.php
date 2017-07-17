@@ -14,14 +14,26 @@ class SyncController extends Controller
 
     public function sync()
     {
-      // get shopify products
+      // Shopify
       $this->shopifyClient = new ShopifyClient();
-      // sync with current inv
       $this->shopifyClient->syncWithVendor();
-      // get vend products
-      // sync with current inv
+
+      // Vend
       $this->vendClient = new VendClient();
       $this->vendClient->syncWithVendor();
-      return ["SYNC COMPLETE"];
+
+      // Validate Vend access token
+      $dateNow = date("Y-m-d H:i:s");
+      if ($this->vendClient->currentVendor->access_token_expires < $dateNow) {
+
+        return response()->json([
+          'status' => 'error',
+          'message' => 'Refresh Vend Access token'
+        ]);
+      }
+
+      return response()->json([
+          'status' => 'complete'
+      ]);
     }
 }
