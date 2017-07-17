@@ -2,7 +2,7 @@
 #### Sam David's Coding Challenge
 
 ## Notes
-Each vendor has an instance of VendorClient interface where the syncWithVendor function reaches out to vendor's API and sync's inventory from vendor to the local db. This is where the real 'meat' of the logic is for this app, in the 'api/sync' route. This parses the data from the APIs and normalizes it to our schema. I can see the challenges this could bring as you have more and more vendors. I look forward to speaking with the Stitch team about this!
+Each vendor has an instance of VendorClient interface where the `syncWithVendor` function requests vendor's API and syncs inventory from vendor to the local db. This is where the real 'meat' of the logic is for this app, in the 'api/sync' route. This parses the data from the APIs and normalizes it to our schema. I can see the challenges this could bring as you have more and more vendors. I look forward to speaking with the Stitch team about this!
 
 ## Setup
 * Create DB and add credentials to .env (After speaking with Owen I actually used a postgres db for this exercise. I believe that everything should work the same if your env is config for mysql.)
