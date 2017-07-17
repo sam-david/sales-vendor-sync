@@ -15,9 +15,9 @@ class SyncController extends Controller
     public function sync()
     {
       // get shopify products
-      // $this->shopifyClient = new ShopifyClient();
+      $this->shopifyClient = new ShopifyClient();
       // sync with current inv
-      // $this->shopifyClient->syncWithVendor();
+      $this->shopifyClient->syncWithVendor();
       // get vend products
       // sync with current inv
       $this->vendClient = new VendClient();
