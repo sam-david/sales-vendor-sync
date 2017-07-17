@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/vend/callback', '@VendCont')
+Route::get('vend/callback', 'VendController@callback');
+Route::get('vend', 'VendController@index');

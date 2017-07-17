@@ -14,9 +14,9 @@ class ShopifyClient {
   protected $apiPassword;
   protected $currentVendor;
 
-  public function __construct($apikey, $apiPassword) {
-      $this->apiKey = $apikey;
-      $this->apiPassword = $apiPassword;
+  public function __construct() {
+      $this->apiKey = env('SHOPIFY_API_KEY');
+      $this->apiPassword = env('SHOPIFY_PASSWORD');
       $this->currentVendor = Vendor::where('name', 'Shopify')->first();
   }
 
